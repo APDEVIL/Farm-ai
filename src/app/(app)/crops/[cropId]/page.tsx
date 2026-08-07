@@ -1,11 +1,11 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
+import { useParams, useRouter } from "next/navigation";
+import { CropCard } from "@/components/crops/crop-card";
+import { AppTopbar } from "@/components/layout/app-topbar";
 import { api } from "../../../../../convex/_generated/api";
 import type { Id } from "../../../../../convex/_generated/dataModel";
-import { AppTopbar } from "@/components/layout/app-topbar";
-import { CropCard } from "@/components/crops/crop-card";
 
 export default function CropDetailPage() {
 	const { cropId } = useParams<{ cropId: string }>();
@@ -17,7 +17,7 @@ export default function CropDetailPage() {
 
 	if (crop === undefined) {
 		return (
-			<div className="flex h-64 items-center justify-center text-[13px] text-[#8A8A7C]">
+			<div className="flex h-64 items-center justify-center text-[#8A8A7C] text-[13px]">
 				Loading...
 			</div>
 		);
@@ -26,8 +26,11 @@ export default function CropDetailPage() {
 	if (crop === null) {
 		return (
 			<div className="flex flex-col gap-6">
-				<AppTopbar title="Crop not found" onBack={() => router.push("/crops")} />
-				<div className="rounded-3xl border border-black/5 bg-white/70 p-10 text-center text-[13px] text-[#8A8A7C]">
+				<AppTopbar
+					onBack={() => router.push("/crops")}
+					title="Crop not found"
+				/>
+				<div className="rounded-3xl border border-black/5 bg-white/70 p-10 text-center text-[#8A8A7C] text-[13px]">
 					This crop doesn't exist, or you don't have access to it.
 				</div>
 			</div>
@@ -37,9 +40,9 @@ export default function CropDetailPage() {
 	return (
 		<div className="flex flex-col gap-6">
 			<AppTopbar
-				title={crop.name}
-				subtitle={crop.variety ?? "Crop details"}
 				onBack={() => router.push("/crops")}
+				subtitle={crop.variety ?? "Crop details"}
+				title={crop.name}
 			/>
 
 			<div className="max-w-md">
@@ -48,8 +51,8 @@ export default function CropDetailPage() {
 
 			{crop.notes && (
 				<div className="max-w-md rounded-3xl border border-black/5 bg-white/70 p-5">
-					<h3 className="text-[13px] font-semibold text-[#1D1E17]">Notes</h3>
-					<p className="mt-1 text-[13px] text-[#4C4C42]">{crop.notes}</p>
+					<h3 className="font-semibold text-[#1D1E17] text-[13px]">Notes</h3>
+					<p className="mt-1 text-[#4C4C42] text-[13px]">{crop.notes}</p>
 				</div>
 			)}
 

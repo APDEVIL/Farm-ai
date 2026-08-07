@@ -1,10 +1,8 @@
 "use client";
 
 import { useMutation } from "convex/react";
-import { toast } from "sonner";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
-import { api } from "../../../convex/_generated/api";
-import type { Id } from "../../../convex/_generated/dataModel";
+import { toast } from "sonner";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,6 +10,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { api } from "../../../convex/_generated/api";
+import type { Id } from "../../../convex/_generated/dataModel";
 
 export interface CropItem {
 	_id: Id<"crops">;
@@ -74,9 +74,11 @@ export function CropCard({ crop, onEdit, className }: CropCardProps) {
 		>
 			<div className="flex items-start justify-between">
 				<div>
-					<h3 className="text-[15px] font-semibold text-[#1D1E17]">{crop.name}</h3>
+					<h3 className="font-semibold text-[#1D1E17] text-[15px]">
+						{crop.name}
+					</h3>
 					{crop.variety && (
-						<p className="text-[12px] text-[#8A8A7C]">{crop.variety}</p>
+						<p className="text-[#8A8A7C] text-[12px]">{crop.variety}</p>
 					)}
 				</div>
 
@@ -118,21 +120,21 @@ export function CropCard({ crop, onEdit, className }: CropCardProps) {
 			<div className="mt-4 flex flex-wrap items-center gap-2">
 				<span
 					className={cn(
-						"rounded-full px-2.5 py-1 text-[11px] font-medium capitalize",
+						"rounded-full px-2.5 py-1 font-medium text-[11px] capitalize",
 						STATUS_STYLE[crop.status],
 					)}
 				>
 					{crop.status}
 				</span>
 				{crop.areaAcres != null && (
-					<span className="text-[12px] text-[#8A8A7C]">
+					<span className="text-[#8A8A7C] text-[12px]">
 						{crop.areaAcres} acres
 					</span>
 				)}
 			</div>
 
 			{(crop.sownDate || crop.expectedHarvestDate) && (
-				<div className="mt-3 flex gap-4 border-t border-black/5 pt-3 text-[11px] text-[#8A8A7C]">
+				<div className="mt-3 flex gap-4 border-black/5 border-t pt-3 text-[#8A8A7C] text-[11px]">
 					{crop.sownDate && <span>Sown: {formatDate(crop.sownDate)}</span>}
 					{crop.expectedHarvestDate && (
 						<span>Harvest: {formatDate(crop.expectedHarvestDate)}</span>

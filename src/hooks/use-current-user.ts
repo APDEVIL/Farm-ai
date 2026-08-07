@@ -1,7 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { useConvexAuth } from "convex/react";
+import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
 /** Convenience hook for the logged-in user's app profile (role, farm info).

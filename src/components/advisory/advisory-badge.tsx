@@ -1,4 +1,4 @@
-import { Info, AlertTriangle, AlertOctagon } from "lucide-react";
+import { AlertOctagon, AlertTriangle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Severity = "info" | "warning" | "critical";

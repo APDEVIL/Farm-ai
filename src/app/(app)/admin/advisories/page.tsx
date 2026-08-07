@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { api } from "../../../../../convex/_generated/api";
-import { AppTopbar } from "@/components/layout/app-topbar";
 import { AdminGuard } from "@/components/admin/admin-guard";
 import { AdvisoryList } from "@/components/advisory/advisory-list";
+import { AppTopbar } from "@/components/layout/app-topbar";
 import {
 	Dialog,
 	DialogContent,
@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus } from "lucide-react";
+import { api } from "../../../../../convex/_generated/api";
 
 function CreateAdvisoryDialog() {
 	const createAdvisory = useMutation(api.advisory.mutations.createAdvisory);
@@ -62,8 +62,8 @@ function CreateAdvisoryDialog() {
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger className="flex items-center gap-1.5 rounded-full bg-[#D6FF4D] px-4 py-2 text-[12px] font-semibold text-[#1B1D14] transition hover:bg-[#c7f02f]">
+		<Dialog onOpenChange={setOpen} open={open}>
+			<DialogTrigger className="flex items-center gap-1.5 rounded-full bg-[#D6FF4D] px-4 py-2 font-semibold text-[#1B1D14] text-[12px] transition hover:bg-[#c7f02f]">
 				<Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
 				New advisory
 			</DialogTrigger>
@@ -73,15 +73,15 @@ function CreateAdvisoryDialog() {
 					<DialogTitle>Publish an advisory</DialogTitle>
 				</DialogHeader>
 
-				<form onSubmit={handleSubmit} className="space-y-4">
+				<form className="space-y-4" onSubmit={handleSubmit}>
 					<div className="space-y-1.5">
 						<Label htmlFor="adv-title">Title</Label>
 						<Input
 							id="adv-title"
-							value={title}
 							onChange={(e) => setTitle(e.target.value)}
 							placeholder="e.g. Delay pesticide application"
 							required
+							value={title}
 						/>
 					</div>
 
@@ -89,10 +89,10 @@ function CreateAdvisoryDialog() {
 						<Label htmlFor="adv-body">Details</Label>
 						<Textarea
 							id="adv-body"
-							value={body}
 							onChange={(e) => setBody(e.target.value)}
 							placeholder="Full advisory text shown to farmers"
 							required
+							value={body}
 						/>
 					</div>
 
@@ -100,10 +100,10 @@ function CreateAdvisoryDialog() {
 						<div className="space-y-1.5">
 							<Label htmlFor="adv-severity">Severity</Label>
 							<select
-								id="adv-severity"
-								value={severity}
-								onChange={(e) => setSeverity(e.target.value as typeof severity)}
 								className="w-full rounded-md border border-black/10 bg-white px-3 py-2 text-[13px]"
+								id="adv-severity"
+								onChange={(e) => setSeverity(e.target.value as typeof severity)}
+								value={severity}
 							>
 								<option value="info">Info</option>
 								<option value="warning">Warning</option>
@@ -114,9 +114,9 @@ function CreateAdvisoryDialog() {
 							<Label htmlFor="adv-region">Region (optional)</Label>
 							<Input
 								id="adv-region"
-								value={region}
 								onChange={(e) => setRegion(e.target.value)}
 								placeholder="District"
+								value={region}
 							/>
 						</div>
 					</div>
@@ -125,17 +125,17 @@ function CreateAdvisoryDialog() {
 						<Label htmlFor="adv-crop">Crop (optional)</Label>
 						<Input
 							id="adv-crop"
-							value={cropName}
 							onChange={(e) => setCropName(e.target.value)}
 							placeholder="Leave blank for a general advisory"
+							value={cropName}
 						/>
 					</div>
 
 					<DialogFooter>
 						<button
-							type="submit"
+							className="w-full rounded-full bg-[#D6FF4D] px-4 py-2.5 font-semibold text-[#1B1D14] text-[13px] transition hover:bg-[#c7f02f] disabled:opacity-60"
 							disabled={submitting}
-							className="w-full rounded-full bg-[#D6FF4D] px-4 py-2.5 text-[13px] font-semibold text-[#1B1D14] transition hover:bg-[#c7f02f] disabled:opacity-60"
+							type="submit"
 						>
 							{submitting ? "Publishing..." : "Publish"}
 						</button>
@@ -153,9 +153,9 @@ export default function AdminAdvisoriesPage() {
 		<AdminGuard>
 			<div className="flex flex-col gap-6">
 				<AppTopbar
-					title="Advisories"
-					subtitle="Publish and review advisories sent to farmers"
 					rightSlot={<CreateAdvisoryDialog />}
+					subtitle="Publish and review advisories sent to farmers"
+					title="Advisories"
 				/>
 
 				{advisories === undefined ? (

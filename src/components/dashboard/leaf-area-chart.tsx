@@ -20,31 +20,31 @@ function Ring({ percent, value }: { percent: number; value: number }) {
 	const offset = circumference * (1 - percent / 100);
 
 	return (
-		<svg width={size} height={size} className="shrink-0">
+		<svg className="shrink-0" height={size} width={size}>
 			<circle
+				className="fill-none stroke-white/10"
 				cx={size / 2}
 				cy={size / 2}
 				r={radius}
 				strokeWidth={stroke}
-				className="fill-none stroke-white/10"
 			/>
 			<circle
+				className="fill-none stroke-[#D6FF4D] transition-[stroke-dashoffset] duration-500"
 				cx={size / 2}
 				cy={size / 2}
 				r={radius}
-				strokeWidth={stroke}
-				strokeLinecap="round"
 				strokeDasharray={circumference}
 				strokeDashoffset={offset}
+				strokeLinecap="round"
+				strokeWidth={stroke}
 				transform={`rotate(-90 ${size / 2} ${size / 2})`}
-				className="fill-none stroke-[#D6FF4D] transition-[stroke-dashoffset] duration-500"
 			/>
 			<text
+				className="fill-[#F5F4EC] font-semibold text-[15px]"
+				dominantBaseline="middle"
+				textAnchor="middle"
 				x="50%"
 				y="50%"
-				textAnchor="middle"
-				dominantBaseline="middle"
-				className="fill-[#F5F4EC] text-[15px] font-semibold"
 			>
 				{value}
 			</text>
@@ -58,11 +58,13 @@ export function LeafAreaChart({ weeks, className }: LeafAreaChartProps) {
 	return (
 		<div className={cn("rounded-3xl bg-[#20231A] p-5", className)}>
 			<div className="flex items-center justify-between">
-				<h3 className="text-[14px] font-medium text-[#E7E6D9]">Leaf area index</h3>
+				<h3 className="font-medium text-[#E7E6D9] text-[14px]">
+					Leaf area index
+				</h3>
 				<button
-					type="button"
-					className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-[#E7E6D9] transition hover:bg-white/20"
 					aria-label="Expand leaf area index"
+					className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-[#E7E6D9] transition hover:bg-white/20"
+					type="button"
 				>
 					<ArrowUpRight className="h-3.5 w-3.5" />
 				</button>
@@ -71,8 +73,8 @@ export function LeafAreaChart({ weeks, className }: LeafAreaChartProps) {
 			<div className="mt-4 flex items-center justify-center">
 				{weeks.map((w, i) => (
 					<div
-						key={w.label}
 						className="relative"
+						key={w.label}
 						style={{ marginLeft: i === 0 ? 0 : -24 }}
 					>
 						<Ring percent={w.percent} value={w.value} />
@@ -82,7 +84,7 @@ export function LeafAreaChart({ weeks, className }: LeafAreaChartProps) {
 
 			<div className="mt-3 flex justify-center gap-6">
 				{weeks.map((w) => (
-					<span key={w.label} className="text-[11px] text-[#9C9B8C]">
+					<span className="text-[#9C9B8C] text-[11px]" key={w.label}>
 						{w.label}
 					</span>
 				))}

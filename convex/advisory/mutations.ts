@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, internalMutation } from "../_generated/server";
+import { internalMutation, mutation } from "../_generated/server";
 import { requireProfile, requireRole } from "../lib/permissions";
 import { advisorySeverity } from "../lib/validators";
 

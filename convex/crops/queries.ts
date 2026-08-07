@@ -34,7 +34,11 @@ export const listByFarmer = query({
 	args: {
 		farmerId: v.id("profiles"),
 		status: v.optional(
-			v.union(v.literal("planned"), v.literal("growing"), v.literal("harvested")),
+			v.union(
+				v.literal("planned"),
+				v.literal("growing"),
+				v.literal("harvested"),
+			),
 		),
 	},
 	handler: async (ctx, { farmerId, status }) => {

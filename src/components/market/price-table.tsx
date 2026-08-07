@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
 	Table,
 	TableBody,
@@ -6,7 +7,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export interface MarketPriceRow {
@@ -41,7 +41,12 @@ export function PriceTable({ prices, className }: PriceTableProps) {
 	}
 
 	return (
-		<div className={cn("overflow-hidden rounded-3xl border border-black/5 bg-white/70", className)}>
+		<div
+			className={cn(
+				"overflow-hidden rounded-3xl border border-black/5 bg-white/70",
+				className,
+			)}
+		>
 			<Table>
 				<TableHeader>
 					<TableRow className="hover:bg-transparent">
@@ -61,7 +66,7 @@ export function PriceTable({ prices, className }: PriceTableProps) {
 							<TableCell className="font-medium text-[#1D1E17]">
 								{row.commodity}
 								{row.variety && (
-									<span className="ml-1 text-[11px] text-[#8A8A7C]">
+									<span className="ml-1 text-[#8A8A7C] text-[11px]">
 										({row.variety})
 									</span>
 								)}
@@ -80,13 +85,13 @@ export function PriceTable({ prices, className }: PriceTableProps) {
 							<TableCell className="text-[#8A8A7C]">{row.priceDate}</TableCell>
 							<TableCell>
 								<Badge
-									variant="outline"
 									className={cn(
 										"text-[10px] capitalize",
 										row.source === "agmarknet"
 											? "border-[#8FA857] text-[#5C7A2E]"
 											: "border-[#B7B6A8] text-[#6B6B62]",
 									)}
+									variant="outline"
 								>
 									{row.source}
 								</Badge>

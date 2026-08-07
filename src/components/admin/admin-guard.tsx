@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 /** Wrap any /admin page with this. Redirects non-admins to /dashboard.
@@ -20,7 +20,7 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
 
 	if (isLoading || !profile || profile.role !== "admin") {
 		return (
-			<div className="flex h-64 items-center justify-center text-[13px] text-[#8A8A7C]">
+			<div className="flex h-64 items-center justify-center text-[#8A8A7C] text-[13px]">
 				Checking access...
 			</div>
 		);

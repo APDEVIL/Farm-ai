@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
-import { requireProfile, requireRole } from "../lib/permissions";
 import { authComponent } from "../auth";
+import { requireProfile, requireRole } from "../lib/permissions";
 
 /** Call once, right after a Better Auth signup, to create the app-level
  * profile row. Defaults role to "farmer" — admins are promoted separately

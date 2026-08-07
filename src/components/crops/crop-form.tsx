@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useMutation } from "convex/react";
+import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { api } from "../../../convex/_generated/api";
-import type { Id } from "../../../convex/_generated/dataModel";
 import {
 	Dialog,
 	DialogContent,
@@ -15,7 +14,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
+import { api } from "../../../convex/_generated/api";
+import type { Id } from "../../../convex/_generated/dataModel";
 import type { CropItem } from "./crop-card";
 
 interface CropFormProps {
@@ -94,7 +94,7 @@ export function CropForm({ crop, trigger, open, onOpenChange }: CropFormProps) {
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog onOpenChange={onOpenChange} open={open}>
 			{trigger !== undefined ? (
 				<DialogTrigger render={trigger as React.ReactElement} />
 			) : (
@@ -109,15 +109,15 @@ export function CropForm({ crop, trigger, open, onOpenChange }: CropFormProps) {
 					<DialogTitle>{isEdit ? "Edit crop" : "Add a new crop"}</DialogTitle>
 				</DialogHeader>
 
-				<form onSubmit={handleSubmit} className="space-y-4">
+				<form className="space-y-4" onSubmit={handleSubmit}>
 					<div className="space-y-1.5">
 						<Label htmlFor="crop-name">Crop name</Label>
 						<Input
 							id="crop-name"
-							value={name}
 							onChange={(e) => setName(e.target.value)}
 							placeholder="e.g. Wheat"
 							required
+							value={name}
 						/>
 					</div>
 
@@ -125,9 +125,9 @@ export function CropForm({ crop, trigger, open, onOpenChange }: CropFormProps) {
 						<Label htmlFor="crop-variety">Variety (optional)</Label>
 						<Input
 							id="crop-variety"
-							value={variety}
 							onChange={(e) => setVariety(e.target.value)}
 							placeholder="e.g. HD-2967"
+							value={variety}
 						/>
 					</div>
 
@@ -135,12 +135,12 @@ export function CropForm({ crop, trigger, open, onOpenChange }: CropFormProps) {
 						<Label htmlFor="crop-area">Area (acres)</Label>
 						<Input
 							id="crop-area"
-							type="number"
 							min="0"
-							step="0.1"
-							value={areaAcres}
 							onChange={(e) => setAreaAcres(e.target.value)}
 							placeholder="e.g. 2.5"
+							step="0.1"
+							type="number"
+							value={areaAcres}
 						/>
 					</div>
 
@@ -149,27 +149,27 @@ export function CropForm({ crop, trigger, open, onOpenChange }: CropFormProps) {
 							<Label htmlFor="crop-sown">Sown date</Label>
 							<Input
 								id="crop-sown"
+								onChange={(e) => setSownDate(e.target.value)}
 								type="date"
 								value={sownDate}
-								onChange={(e) => setSownDate(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1.5">
 							<Label htmlFor="crop-harvest">Expected harvest</Label>
 							<Input
 								id="crop-harvest"
+								onChange={(e) => setHarvestDate(e.target.value)}
 								type="date"
 								value={harvestDate}
-								onChange={(e) => setHarvestDate(e.target.value)}
 							/>
 						</div>
 					</div>
 
 					<DialogFooter>
 						<button
-							type="submit"
+							className="w-full rounded-full bg-[#D6FF4D] px-4 py-2.5 font-semibold text-[#1B1D14] text-[13px] transition hover:bg-[#c7f02f] disabled:opacity-60"
 							disabled={submitting}
-							className="w-full rounded-full bg-[#D6FF4D] px-4 py-2.5 text-[13px] font-semibold text-[#1B1D14] transition hover:bg-[#c7f02f] disabled:opacity-60"
+							type="submit"
 						>
 							{submitting ? "Saving..." : isEdit ? "Save changes" : "Add crop"}
 						</button>

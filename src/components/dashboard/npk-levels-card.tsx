@@ -27,21 +27,23 @@ export function NpkLevelsCard({ nutrients, className }: NpkLevelsCardProps) {
 		>
 			<div className="flex items-center justify-between">
 				<div>
-					<h3 className="text-[15px] font-semibold text-[#1D1E17]">NPK Levels</h3>
-					<p className="text-[12px] text-[#8A8A7C]">This week</p>
+					<h3 className="font-semibold text-[#1D1E17] text-[15px]">
+						NPK Levels
+					</h3>
+					<p className="text-[#8A8A7C] text-[12px]">This week</p>
 				</div>
 				<div className="flex rounded-full bg-[#EFEEE4] p-1">
 					{TABS.map((t) => (
 						<button
-							key={t}
-							type="button"
-							onClick={() => setTab(t)}
 							className={cn(
-								"rounded-full px-3 py-1 text-[11px] font-medium transition",
+								"rounded-full px-3 py-1 font-medium text-[11px] transition",
 								tab === t
 									? "bg-[#D6FF4D] text-[#1B1D14]"
 									: "text-[#8A8A7C] hover:text-[#1D1E17]",
 							)}
+							key={t}
+							onClick={() => setTab(t)}
+							type="button"
 						>
 							{t}
 						</button>

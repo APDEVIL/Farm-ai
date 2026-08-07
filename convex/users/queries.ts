@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query, internalQuery } from "../_generated/server";
+import { internalQuery, query } from "../_generated/server";
 import { requireProfile, requireRole } from "../lib/permissions";
 
 /** The logged-in user's own profile. Returns null if none exists yet

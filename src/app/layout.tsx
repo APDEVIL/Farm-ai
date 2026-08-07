@@ -21,11 +21,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" className={geist.variable}>
+		<html className={geist.variable} lang="en">
 			<body className="font-sans antialiased">
 				<ConvexClientProvider>
 					{children}
-					<Toaster richColors position="top-right" />
+					<Toaster position="top-right" richColors />
 				</ConvexClientProvider>
 			</body>
 		</html>

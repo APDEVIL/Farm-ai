@@ -1,9 +1,9 @@
+import { ConvexHttpClient } from "convex/browser";
+import { headers } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../../../convex/_generated/api";
 import { auth } from "@/server/better-auth";
-import { headers } from "next/headers";
+import { api } from "../../../../convex/_generated/api";
 
 const f = createUploadthing();
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);

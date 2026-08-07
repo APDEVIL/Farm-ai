@@ -1,8 +1,8 @@
 "use node";
 
-import { internalAction } from "../_generated/server";
 import { internal } from "../_generated/api";
 import type { ActionCtx } from "../_generated/server";
+import { internalAction } from "../_generated/server";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -13,10 +13,7 @@ type ForecastDay = {
 	tempMinC: number;
 };
 
-async function fetchForecast(
-	lat: number,
-	lon: number,
-): Promise<ForecastDay[]> {
+async function fetchForecast(lat: number, lon: number): Promise<ForecastDay[]> {
 	const url =
 		`https://api.open-meteo.com/v1/forecast` +
 		`?latitude=${lat}&longitude=${lon}` +
@@ -29,12 +26,14 @@ async function fetchForecast(
 	}
 	const data = await res.json();
 
-	const days: ForecastDay[] = data.daily.time.map((date: string, i: number) => ({
-		date,
-		precipitationMm: data.daily.precipitation_sum[i],
-		tempMaxC: data.daily.temperature_2m_max[i],
-		tempMinC: data.daily.temperature_2m_min[i],
-	}));
+	const days: ForecastDay[] = data.daily.time.map(
+		(date: string, i: number) => ({
+			date,
+			precipitationMm: data.daily.precipitation_sum[i],
+			tempMaxC: data.daily.temperature_2m_max[i],
+			tempMinC: data.daily.temperature_2m_min[i],
+		}),
+	);
 	return days;
 }
 

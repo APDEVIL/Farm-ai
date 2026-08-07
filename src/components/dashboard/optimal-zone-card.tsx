@@ -33,34 +33,36 @@ export function OptimalZoneCard({
 		>
 			<div className="flex items-start justify-between">
 				<div>
-					<span className="inline-block rounded-full bg-[#D6FF4D] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#1B1D14]">
+					<span className="inline-block rounded-full bg-[#D6FF4D] px-3 py-1 font-semibold text-[#1B1D14] text-[11px] uppercase tracking-wide">
 						Optimal zone
 					</span>
-					<div className="mt-3 text-5xl font-semibold tracking-tight text-[#F5F4EC]">
+					<div className="mt-3 font-semibold text-5xl text-[#F5F4EC] tracking-tight">
 						{percentage}%
 					</div>
-					<p className="mt-1 text-[13px] text-[#B7B6A8]">{label}</p>
+					<p className="mt-1 text-[#B7B6A8] text-[13px]">{label}</p>
 				</div>
 			</div>
 
 			<div className="mt-5 flex flex-wrap gap-2">
 				{crops.map((crop) => (
 					<div
-						key={crop.name}
 						className="flex items-center gap-2 rounded-full bg-[#2A2D1F] px-3 py-2"
+						key={crop.name}
 					>
 						<span className="text-base leading-none">{crop.emoji}</span>
 						<div className="flex flex-col leading-tight">
-							<span className="text-[12px] text-[#EDEBDD]">{crop.name}</span>
-							<span className="text-[11px] text-[#8C8B7C]">{crop.quantity}</span>
+							<span className="text-[#EDEBDD] text-[12px]">{crop.name}</span>
+							<span className="text-[#8C8B7C] text-[11px]">
+								{crop.quantity}
+							</span>
 						</div>
 					</div>
 				))}
 
 				<button
-					type="button"
+					className="flex items-center gap-1.5 rounded-full bg-[#D6FF4D] px-4 py-2 font-semibold text-[#1B1D14] text-[12px] transition hover:bg-[#c7f02f]"
 					onClick={onAddCrop}
-					className="flex items-center gap-1.5 rounded-full bg-[#D6FF4D] px-4 py-2 text-[12px] font-semibold text-[#1B1D14] transition hover:bg-[#c7f02f]"
+					type="button"
 				>
 					<Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
 					Add Crop

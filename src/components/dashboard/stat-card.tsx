@@ -10,7 +10,12 @@ interface StatCardProps {
 
 /** Compact pill-shaped stat, e.g. "Planted area — 125ha". Matches the
  * small rounded cards along the top of the reference dashboard. */
-export function StatCard({ icon: Icon, label, value, className }: StatCardProps) {
+export function StatCard({
+	icon: Icon,
+	label,
+	value,
+	className,
+}: StatCardProps) {
 	return (
 		<div
 			className={cn(
@@ -22,8 +27,10 @@ export function StatCard({ icon: Icon, label, value, className }: StatCardProps)
 				<Icon className="h-4 w-4 text-[#3F4A2B]" strokeWidth={1.75} />
 			</div>
 			<div className="flex flex-col leading-tight">
-				<span className="text-[13px] text-[#6B6B62]">{label}</span>
-				<span className="text-[15px] font-semibold text-[#1D1E17]">{value}</span>
+				<span className="text-[#6B6B62] text-[13px]">{label}</span>
+				<span className="font-semibold text-[#1D1E17] text-[15px]">
+					{value}
+				</span>
 			</div>
 		</div>
 	);

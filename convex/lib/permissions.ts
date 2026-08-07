@@ -1,4 +1,4 @@
-import type { QueryCtx, MutationCtx } from "../_generated/server";
+import type { MutationCtx, QueryCtx } from "../_generated/server";
 import { authComponent } from "../auth";
 
 export type Role = "farmer" | "admin" | "buyer";
