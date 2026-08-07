@@ -11,6 +11,9 @@
 import type * as advisory_mutations from "../advisory/mutations.js";
 import type * as advisory_queries from "../advisory/queries.js";
 import type * as advisory_weather from "../advisory/weather.js";
+import type * as assistant_chat from "../assistant/chat.js";
+import type * as assistant_mutations from "../assistant/mutations.js";
+import type * as assistant_queries from "../assistant/queries.js";
 import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
 import type * as crops_mutations from "../crops/mutations.js";
@@ -36,6 +39,9 @@ declare const fullApi: ApiFromModules<{
   "advisory/mutations": typeof advisory_mutations;
   "advisory/queries": typeof advisory_queries;
   "advisory/weather": typeof advisory_weather;
+  "assistant/chat": typeof assistant_chat;
+  "assistant/mutations": typeof assistant_mutations;
+  "assistant/queries": typeof assistant_queries;
   auth: typeof auth;
   crons: typeof crons;
   "crops/mutations": typeof crops_mutations;

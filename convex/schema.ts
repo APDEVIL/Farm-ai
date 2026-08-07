@@ -13,7 +13,11 @@ export default defineSchema({
 	// ---------------------------------------------------------------------
 	profiles: defineTable({
 		authUserId: v.string(), // Better Auth user _id (string form)
-		role: v.union(v.literal("farmer"), v.literal("admin"), v.literal("buyer")),
+		role: v.union(
+			v.literal("farmer"),
+			v.literal("admin"),
+			v.literal("buyer"),
+		),
 		fullName: v.string(),
 		phone: v.optional(v.string()),
 		village: v.optional(v.string()),
@@ -116,4 +120,13 @@ export default defineSchema({
 	})
 		.index("by_owner", ["ownerId"])
 		.index("by_owner_category", ["ownerId", "category"]),
+
+	// ---------------------------------------------------------------------
+	// AI assistant chat history — persisted per farmer, Groq-backed
+	// ---------------------------------------------------------------------
+	assistantMessages: defineTable({
+		farmerId: v.id("profiles"),
+		role: v.union(v.literal("user"), v.literal("assistant")),
+		content: v.string(),
+	}).index("by_farmer", ["farmerId"]),
 });

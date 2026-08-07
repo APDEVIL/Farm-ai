@@ -1,27 +1,30 @@
-import { ConvexHttpClient } from "convex/browser";
-import { headers } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "@/server/better-auth";
+import { z } from "zod";
+import { fetchAuthQuery, fetchAuthMutation } from "@/server/better-auth/auth-server";
 import { api } from "../../../../convex/_generated/api";
 
 const f = createUploadthing();
-const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-async function getSessionUser() {
-	const session = await auth.api.getSession({ headers: await headers() });
-	if (!session?.user) throw new UploadThingError("Unauthorized");
-	return session.user;
+/** Verifies the request against the REAL Convex-backed session (not the
+ * old standalone better-auth instance) via fetchAuthQuery, which reads
+ * the session cookie automatically. Throws if there's no valid session. */
+async function requireAuthedProfile() {
+	const current = await fetchAuthQuery(api.auth.getCurrentUser, {});
+	if (!current?.profile) {
+		throw new UploadThingError("Unauthorized");
+	}
+	return current.profile;
 }
 
 export const uploadRouter = {
 	cropImage: f({ image: { maxFileSize: "4MB", maxFileCount: 5 } })
 		.middleware(async () => {
-			const user = await getSessionUser();
-			return { userId: user.id };
+			const profile = await requireAuthedProfile();
+			return { profileId: profile._id };
 		})
 		.onUploadComplete(async ({ file }) => {
-			await convex.mutation(api.uploads.mutations.recordUpload, {
+			await fetchAuthMutation(api.uploads.mutations.recordUpload, {
 				uploadthingKey: file.key,
 				url: file.ufsUrl,
 				fileName: file.name,
@@ -34,17 +37,22 @@ export const uploadRouter = {
 		pdf: { maxFileSize: "8MB", maxFileCount: 3 },
 		image: { maxFileSize: "8MB", maxFileCount: 3 },
 	})
-		.middleware(async () => {
-			const user = await getSessionUser();
-			return { userId: user.id };
+		.input(
+			z.object({
+				category: z.enum(["certificate", "id_proof", "other"]),
+			}),
+		)
+		.middleware(async ({ input }) => {
+			const profile = await requireAuthedProfile();
+			return { profileId: profile._id, category: input.category };
 		})
-		.onUploadComplete(async ({ file }) => {
-			await convex.mutation(api.uploads.mutations.recordUpload, {
+		.onUploadComplete(async ({ file, metadata }) => {
+			await fetchAuthMutation(api.uploads.mutations.recordUpload, {
 				uploadthingKey: file.key,
 				url: file.ufsUrl,
 				fileName: file.name,
 				fileType: file.type,
-				category: "certificate", // adjust per-upload if you split cert/ID proof
+				category: metadata.category,
 			});
 		}),
 } satisfies FileRouter;
