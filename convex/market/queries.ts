@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query } from "../_generated/server";
-import { requireProfile } from "../lib/permissions";
+import { requireProfile, requireRole } from "../lib/permissions";
 
 /** Latest recorded price per commodity (most recent priceDate). Public to
  * any authenticated user — farmers and buyers both need this. */
@@ -48,5 +48,15 @@ export const listByState = query({
 			.withIndex("by_state_commodity", (q) => q.eq("state", state))
 			.order("desc")
 			.take(100);
+	},
+});
+
+/** Admin-only: most recently recorded prices across all commodities/states —
+ * used by the admin market-prices overview page. */
+export const listRecent = query({
+	args: {},
+	handler: async (ctx) => {
+		await requireRole(ctx, ["admin"]);
+		return await ctx.db.query("marketPrices").order("desc").take(100);
 	},
 });

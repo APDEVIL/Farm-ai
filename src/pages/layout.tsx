@@ -1,11 +1,33 @@
-import type { ReactNode } from "react";
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
+import { ConvexClientProvider } from "@/lib/convex-client-provider";
+import "./globals.css";
 
-export default function AppLayout({ children }: { children: ReactNode }) {
+const geist = Geist({
+	subsets: ["latin"],
+	variable: "--font-geist",
+});
+
+export const metadata: Metadata = {
+	title: "AgriAdvisor — Crop Advisory & Market Prices",
+	description:
+		"Crop advisory and market price tracking for farmers — weather-based alerts, mandi prices, and farm management in one place.",
+};
+
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	return (
-		<div className="flex min-h-screen bg-[#EDEBDF]">
-			<AppSidebar />
-			<main className="flex-1 overflow-y-auto p-6">{children}</main>
-		</div>
+		<html lang="en" className={geist.variable}>
+			<body className="font-sans antialiased">
+				<ConvexClientProvider>
+					{children}
+					<Toaster richColors position="top-right" />
+				</ConvexClientProvider>
+			</body>
+		</html>
 	);
 }

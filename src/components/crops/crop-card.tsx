@@ -80,11 +80,13 @@ export function CropCard({ crop, onEdit, className }: CropCardProps) {
 					)}
 				</div>
 
+				{/* FIXED: Removed the <div> wrapper entirely */}
 				<DropdownMenu>
-					{/* FIXED: Removed asChild and inner <button>. Passed classes to Trigger. */}
 					<DropdownMenuTrigger
-						className="flex h-7 w-7 items-center justify-center rounded-full text-[#8A8A7C] transition hover:bg-black/5 outline-none focus:ring-2 focus:ring-black/10"
 						aria-label="Crop actions"
+						className="flex h-7 w-7 items-center justify-center rounded-full text-[#8A8A7C] outline-none transition hover:bg-black/5 focus:ring-2 focus:ring-black/10"
+						onClick={(e) => e.stopPropagation()}
+						onKeyDown={(e) => e.stopPropagation()}
 					>
 						<MoreVertical className="h-4 w-4" />
 					</DropdownMenuTrigger>
@@ -103,8 +105,8 @@ export function CropCard({ crop, onEdit, className }: CropCardProps) {
 							Mark as Harvested
 						</DropdownMenuItem>
 						<DropdownMenuItem
-							onClick={handleDelete}
 							className="text-red-600 focus:text-red-600"
+							onClick={handleDelete}
 						>
 							<Trash2 className="mr-2 h-3.5 w-3.5" />
 							Delete

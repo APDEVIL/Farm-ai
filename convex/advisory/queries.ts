@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query } from "../_generated/server";
-import { requireProfile } from "../lib/permissions";
+import { requireProfile, requireRole } from "../lib/permissions";
 
 /** Advisories currently valid for the logged-in farmer's region, plus any
  * general (region-less) advisories. Filters out expired ones. */
@@ -71,5 +71,15 @@ export const listUnread = query({
 		);
 
 		return active.filter((a) => !handled.has(a._id));
+	},
+});
+
+/** Admin-only: every advisory regardless of region, most recent first —
+ * used by the admin advisories management page. */
+export const listAllAdvisories = query({
+	args: {},
+	handler: async (ctx) => {
+		await requireRole(ctx, ["admin"]);
+		return await ctx.db.query("advisories").order("desc").take(100);
 	},
 });
